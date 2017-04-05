@@ -151,7 +151,7 @@ class DatabasePresenter: Presentable, Loggable {
 
         if let passwordManager = self.passwordManager, let passwordButton = view.passwordManagerButton {
             passwordButton.onPress = { _ in
-                passwordManager.login { result, error in
+                passwordManager.login { error, result in
                     guard error == nil else {
                         return self.logger.error("There was a problem with the password manager: \(error)")
                     }
@@ -221,7 +221,7 @@ class DatabasePresenter: Presentable, Loggable {
 
         if let passwordManager = self.passwordManager, let passwordButton = view.passwordManagerButton {
             passwordButton.onPress = { _ in
-                passwordManager.store(withPolicy: passwordPolicyValidator?.policy.onePasswordRules()) { result, error in
+                passwordManager.store(withPolicy: passwordPolicyValidator?.policy.onePasswordRules()) { error, result in
                     guard error == nil else {
                         return self.logger.error("There was a problem with the password manager: \(error)")
                     }

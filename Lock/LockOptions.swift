@@ -48,5 +48,6 @@ struct LockOptions: OptionBuildable {
 
     var passwordlessMethod: PasswordlessMethod = .code
 
-    var enableOnePasswordWithIdentifier: String?
+    var showPasswordManager: Bool = true
+    var passwordManagerAppIdentifier: String = Bundle.main.bundleIdentifier!
 }

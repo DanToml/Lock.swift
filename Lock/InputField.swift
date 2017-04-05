@@ -196,13 +196,14 @@ class InputField: UIView, UITextFieldDelegate {
         let button = IconButton()
         button.icon = LazyImage(name: name, bundle: Lock.bundle).image(compatibleWithTraits: self.traitCollection)
         button.color = color
+        button.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
         container.addSubview(button)
 
         self.textFieldRightPadding?.constant = -50
-        constraintEqual(anchor: button.leftAnchor, toAnchor: textField.rightAnchor, constant: 0)
+        constraintEqual(anchor: button.leftAnchor, toAnchor: textField.rightAnchor)
         constraintEqual(anchor: button.topAnchor, toAnchor: textField.topAnchor)
-        constraintEqual(anchor: button.rightAnchor, toAnchor: container.rightAnchor, constant: 0)
         constraintEqual(anchor: button.bottomAnchor, toAnchor: textField.bottomAnchor)
+        constraintEqual(anchor: button.rightAnchor, toAnchor: container.rightAnchor)
         button.translatesAutoresizingMaskIntoConstraints = false
 
         return button

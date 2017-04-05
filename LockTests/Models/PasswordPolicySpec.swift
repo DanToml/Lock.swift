@@ -119,6 +119,36 @@ class PasswordPolicySpec: QuickSpec {
 
         }
 
+        describe("one password extension") {
+
+            it("none") {
+                let policy = PasswordPolicy.none
+                expect(policy.onePasswordRules()).to(haveCount(4))
+            }
+
+            it("low") {
+                let policy = PasswordPolicy.low
+                expect(policy.onePasswordRules()).to(haveCount(4))
+            }
+
+            it("fair") {
+                let policy = PasswordPolicy.fair
+                expect(policy.onePasswordRules()).to(haveCount(4))
+            }
+
+            it("good") {
+                let policy = PasswordPolicy.good
+                expect(policy.onePasswordRules()).to(haveCount(4))
+            }
+
+            it("excellent") {
+                let policy = PasswordPolicy.excellent
+                expect(policy.onePasswordRules()).to(haveCount(4))
+            }
+
+        }
+
+
     }
 }
 

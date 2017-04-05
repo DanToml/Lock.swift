@@ -50,5 +50,6 @@ public protocol Options {
 
     var passwordlessMethod: PasswordlessMethod { get }
 
-    var enableOnePasswordWithIdentifier: String? { get }
+    var showPasswordManager: Bool { get }
+    var passwordManagerAppIdentifier: String { get }
 }

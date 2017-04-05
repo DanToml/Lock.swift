@@ -52,8 +52,8 @@ struct ClassicRouter: Router {
             let authentication = self.lock.authentication
             let interactor = DatabaseInteractor(connection: database, authentication: authentication, user: self.user, options: self.lock.options, dispatcher: lock.observerStore)
             let presenter = DatabasePresenter(interactor: interactor, connection: database, navigator: self, options: self.lock.options)
-            if let passwordIdentifier = self.lock.options.enableOnePasswordWithIdentifier, OnePassword.isAvailable() {
-            let passwordManager = OnePassword(identifier: passwordIdentifier, controller: self.controller)
+            if self.lock.options.showPasswordManager, OnePassword.isAvailable() {
+            let passwordManager = OnePassword(identifier: self.lock.options.passwordManagerAppIdentifier, controller: self.controller)
                 presenter.passwordManager = passwordManager
             }
             if !oauth2.isEmpty {
