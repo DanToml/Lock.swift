@@ -59,7 +59,6 @@ class IconButton: UIView {
 
     private func layoutButton() {
         let button = UIButton(type: .custom)
-
         self.addSubview(button)
 
         constraintEqual(anchor: button.topAnchor, toAnchor: self.topAnchor)
@@ -69,7 +68,6 @@ class IconButton: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
 
         button.addTarget(self, action: #selector(pressed), for: .touchUpInside)
-
         self.button = button
     }
 

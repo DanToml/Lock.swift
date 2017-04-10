@@ -29,7 +29,7 @@ Need help migrating from v1? Please check our [Migration Guide](MIGRATION.md)
  Add the following line to your Podfile:
 
  ```ruby
- pod "Lock", "~> 2.1.0"
+ pod "Lock", "~> 2.1"
  ```
 
 ### Carthage
@@ -37,7 +37,7 @@ Need help migrating from v1? Please check our [Migration Guide](MIGRATION.md)
 In your `Cartfile` add
 
 ```ruby
-github "auth0/Lock.swift" ~>2.1.0
+github "auth0/Lock.swift" ~> 2.1
 ```
 
 ## Usage
@@ -361,25 +361,25 @@ When signing up the default information requirements are the user's *email* and 
 
 *Note: You must specify the icon to use with your custom text field and store it in your App's bundle.*
 
-#### 1Password
+#### Password Manager
 
-By default 1Password support is enabled, although you will still need to have the 1Password app installed for the option to be visible in the login and signup screens. You can disable 1Password support using the `showPasswordManager` option.  
-
-```swift
-.withOptions {
-    $0.showPasswordManager = false
-}
-```
-
-By default the `passwordManagerAppIdentifier` will be set to the app bundle identifier. If you need to share credentials with your website that also uses the same Auth0 connection, then you can use name of the website e.g.
+By default password manager support using [1Password](https://1password.com/) is enabled for database connections, although you will still need to have the 1Password app installed for the option to be visible in the login and signup screens. You can disable 1Password support using the `isEnabled` property of the `passwordManager`.
 
 ```swift
 .withOptions {
-    $0.passwordManagerAppIdentifier = "www.website.com"
+    $0.passwordManager.isEnabled = false
 }
 ```
 
-You will also need to add the following to your app's `info.plist`:
+By default the `appIdentifier` will be set to the app's bundle identifier and the `displayName` will be set to the app's display name. You can customize this as follows:
+
+```swift
+.withOptions {
+    $0.passwordManager = PasswordManagerConfig(appIdentifier: "www.myapp.com", displayName: "My App")
+}
+```
+
+You will need to add the following to your app's `info.plist`:
 
 ```xml
 <key>LSApplicationQueriesSchemes</key>

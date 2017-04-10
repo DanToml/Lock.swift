@@ -31,6 +31,7 @@ class OnePasswordSpec: QuickSpec {
 
         var onePassword: OnePassword?
         var viewController: MockViewController?
+        var passwordConfig: PasswordManagerConfig!
 
         describe("availability") {
 
@@ -45,16 +46,18 @@ class OnePasswordSpec: QuickSpec {
             beforeEach {
                 onePassword = nil
                 viewController = MockViewController()
+                passwordConfig = PasswordManagerConfig()
             }
 
-            it("should init with identifier") {
-                onePassword = OnePassword(identifier: "www.mysite.com", controller: nil)
-                expect(onePassword?.identifier) == "www.mysite.com"
+            it("should init with default config") {
+                onePassword = OnePassword(withConfig: passwordConfig, controller: nil)
+                expect(onePassword?.config.appIdentifier) == Bundle.main.bundleIdentifier!
+                expect(onePassword?.config.displayName) == Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String
+                expect(onePassword?.config.isEnabled) == true
             }
 
             it("should init with identifier and controller") {
-                onePassword = OnePassword(identifier: "www.mysite.com", controller: viewController)
-                expect(onePassword?.identifier) == "www.mysite.com"
+                onePassword = OnePassword(withConfig: passwordConfig, controller: viewController)
                 expect(onePassword?.controller).to(equal(viewController))
             }
             
@@ -64,7 +67,8 @@ class OnePasswordSpec: QuickSpec {
 
             beforeEach {
                 viewController = MockViewController()
-                onePassword = OnePassword(identifier: "www.mysite.com", controller: viewController)
+                passwordConfig = PasswordManagerConfig()
+                onePassword = OnePassword(withConfig: passwordConfig, controller: viewController)
             }
 
             it("should present extension prompt on login") {

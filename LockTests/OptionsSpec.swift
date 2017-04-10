@@ -98,14 +98,17 @@ class OptionsSpec: QuickSpec {
                 expect(options.passwordlessMethod).to(equal(PasswordlessMethod.code))
             }
 
-            it("should show passwordManager") {
-                expect(options.showPasswordManager) == true
+            it("should have passwordManager enabled") {
+                expect(options.passwordManager.isEnabled) == true
             }
 
-            it("should match bundler identifier") {
-                expect(options.passwordManagerAppIdentifier) == Bundle.main.bundleIdentifier
+            it("should have passwordManager app bundler identifier") {
+                expect(options.passwordManager.appIdentifier) == Bundle.main.bundleIdentifier!
             }
 
+            it("should have passwordManager app display name") {
+                expect(options.passwordManager.displayName) == Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String
+            }
         }
 
         describe("validation") {

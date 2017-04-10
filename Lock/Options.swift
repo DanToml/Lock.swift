@@ -49,7 +49,5 @@ public protocol Options {
     var audience: String? { get }
 
     var passwordlessMethod: PasswordlessMethod { get }
-
-    var showPasswordManager: Bool { get }
-    var passwordManagerAppIdentifier: String { get }
+    var passwordManager: PasswordManagerConfig { get }
 }

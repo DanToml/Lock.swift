@@ -47,7 +47,5 @@ struct LockOptions: OptionBuildable {
     var audience: String?
 
     var passwordlessMethod: PasswordlessMethod = .code
-
-    var showPasswordManager: Bool = true
-    var passwordManagerAppIdentifier: String = Bundle.main.bundleIdentifier!
+    var passwordManager: PasswordManagerConfig = PasswordManagerConfig()
 }

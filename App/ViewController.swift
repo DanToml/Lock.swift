@@ -50,6 +50,7 @@ class ViewController: UIViewController {
                     .classic()
                     .withOptions {
                         applyDefaultOptions(&$0)
+                        $0.passwordManager = PasswordManagerConfig(appIdentifier: "www.myapp.com", displayName: "My App")
                         $0.customSignupFields = [
                             CustomTextField(name: "first_name", placeholder: "First Name", icon: LazyImage(name: "ic_person", bundle: Lock.bundle)),
                             CustomTextField(name: "last_name", placeholder: "Last Name", icon: LazyImage(name: "ic_person", bundle: Lock.bundle))

@@ -32,12 +32,12 @@ protocol PasswordManager {
 
 class OnePassword: PasswordManager {
 
-    let identifier: String
+    let config: PasswordManagerConfig
     weak var controller: UIViewController?
     var fields: [String: InputField] = [:]
 
-    required init(identifier: String, controller: UIViewController?) {
-        self.identifier = identifier
+    required init(withConfig config: PasswordManagerConfig, controller: UIViewController?) {
+        self.config = config
         self.controller = controller
     }
 
@@ -47,7 +47,7 @@ class OnePassword: PasswordManager {
 
     func login(callback: @escaping (Error?, [String: InputField]?) -> Void) {
         guard let controller = self.controller else { return }
-        LockOnePasswordExtension.shared().findLogin(forURLString: self.identifier, for: controller, sender: nil) { (result, error) in
+        LockOnePasswordExtension.shared().findLogin(forURLString: self.config.appIdentifier, for: controller, sender: nil) { (result, error) in
             guard error == nil else {
                 return callback(error, nil)
             }
@@ -58,10 +58,10 @@ class OnePassword: PasswordManager {
     }
 
     func store(withPolicy policy: [String: Any]?, callback: @escaping (Error?, [String: InputField]?) -> Void) {
-        guard let displayName = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String, let controller = self.controller else { return }
-        var loginDetails: [String: String] = [ AppExtensionTitleKey: displayName ]
+        guard let controller = self.controller else { return }
+        var loginDetails: [String: String] = [ AppExtensionTitleKey: self.config.displayName ]
         self.fields.forEach { loginDetails[$0] = $1.text }
-        LockOnePasswordExtension.shared().storeLogin(forURLString: self.identifier, loginDetails: loginDetails, passwordGenerationOptions: policy, for: controller, sender: nil) { (result, error) in
+        LockOnePasswordExtension.shared().storeLogin(forURLString: self.config.appIdentifier, loginDetails: loginDetails, passwordGenerationOptions: policy, for: controller, sender: nil) { (result, error) in
             guard error == nil else {
                 return callback(error, nil)
             }
@@ -69,5 +69,21 @@ class OnePassword: PasswordManager {
             self.fields[AppExtensionPasswordKey]?.text = result?[AppExtensionPasswordKey] as? String
             callback(nil, self.fields)
         }
+    }
+}
+
+public struct PasswordManagerConfig {
+    public var isEnabled: Bool = true
+    public let appIdentifier: String
+    public let displayName: String
+
+    public init() {
+        self.appIdentifier = Bundle.main.bundleIdentifier!
+        self.displayName = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as! String
+    }
+
+    public init(appIdentifier: String, displayName: String) {
+        self.appIdentifier = appIdentifier
+        self.displayName = displayName
     }
 }

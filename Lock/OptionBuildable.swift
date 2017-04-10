@@ -91,11 +91,8 @@ public protocol OptionBuildable: Options {
         /// Specify the passwordless method, send a passcode or magic link. By default is .code
     var passwordlessMethod: PasswordlessMethod { get set }
 
-    /// Show password manager button when user credentials are needed, e.g. during Sign Up, and allow storing/retrieving credentials from the password manager. By default is true
-    var showPasswordManager: Bool { get set }
-
-    /// Application identifier used by the password manager, if you also have a web app we recommend adding your site url. By default is the application bundle identifier
-    var passwordManagerAppIdentifier: String { get set }
+        /// Configuration to be used by the password manager.
+    var passwordManager: PasswordManagerConfig { get set }
 }
 
 extension OptionBuildable {
