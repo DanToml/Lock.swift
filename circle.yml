@@ -16,7 +16,6 @@ dependencies:
 
 test:
   override:
-    - bundle exec fastlane scan
     - bundle exec fastlane ios ci
   post:
     - mkdir -p $CIRCLE_TEST_REPORTS/scan/
