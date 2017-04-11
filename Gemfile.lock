@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/fastlane/fastlane.git
-  revision: ce4bed2891bf4f01d4ff68ac3c3cd0ef320786f7
+  revision: c24e7102179b3ad7a6bf82c2903a09f83466786f
   branch: dani_device_manager_copy_logarchive
   specs:
     fastlane (2.26.0)
