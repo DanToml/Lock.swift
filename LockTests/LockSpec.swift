@@ -40,6 +40,9 @@ class LockSpec: QuickSpec {
         }
 
         describe("options") {
+            it("should fail to test the sim") {
+                expect(true) == false
+            }
 
             it("should allow settings options") {
                 _ = lock.withOptions { $0.closable = true }
